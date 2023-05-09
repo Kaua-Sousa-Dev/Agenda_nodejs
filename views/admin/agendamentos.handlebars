@@ -1,0 +1,22 @@
+<h2>Lista de Agendamentos: </h2>
+
+<a href="/agendamentos/add"><button class="btn btn-sucess">Cadastrar Agendamento</button></a>
+
+{{#each categorias}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4>
+                {{this.Evento}}
+            </h4>
+            <small>
+                Descrição: {{this.Conteudo}}
+            </small>
+            <br>
+            <small>
+                Data de criação: {{this.data}}
+            </small>
+        </div>
+    </div>
+{{else}}
+
+{{/each}}
