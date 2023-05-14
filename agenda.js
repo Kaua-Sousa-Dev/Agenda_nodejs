@@ -52,6 +52,11 @@ mongoose.connect('mongodb://0.0.0.0:27017/agendamentos', {
 })
 
 // rotas
+app.get('/', (req,res) =>{
+    res.render('admin/index')
+})
+
+
 app.use('/', rotas)
 
 // Outros

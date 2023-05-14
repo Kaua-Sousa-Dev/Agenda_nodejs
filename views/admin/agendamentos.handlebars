@@ -1,6 +1,6 @@
 <h2>Lista de Agendamentos: </h2>
 
-<a href="/agendamentos/add"><button class="btn btn-sucess">Cadastrar Agendamento</button></a>
+<a href="/agendamentos/add"><button class="btn btn-success">Cadastrar Agendamento</button></a>
 
 {{#each categorias}}
     <div class="card mt-4">
@@ -8,15 +8,27 @@
             <h4>
                 {{this.Evento}}
             </h4>
-            <small>
+            <h5>
                 Descrição: {{this.Conteudo}}
-            </small>
+            </h5>
             <br>
             <small>
                 Data de criação: {{this.data}}
-            </small>
+            </small> <br>
+            
+            <table>
+                <tr>
+                    <td> <a href="/agendamentos/edit/{{_id}}"><button class="btn btn-success mt-4">Editar</button></a> </td>
+                    <td>
+                    <form action="/agendamentos/deletar" method="post">
+                        <input type="hidden" name="id" value="{{_id}}">
+                        <button type="submit" class="btn btn-danger mt-4">Deletar</button>
+                    </td>
+                    </form>
+                </tr>
+            </table>
         </div>
     </div>
 {{else}}
-
+<h4 class="mt-2">Nenhum evento agendado!</h4>
 {{/each}}
