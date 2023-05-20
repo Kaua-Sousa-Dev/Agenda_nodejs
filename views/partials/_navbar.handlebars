@@ -1,21 +1,42 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">Agendamentos Online</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+
+      {{#if user}}
+
+      <li class="nav-item">
+        <a class="nav-link " href="/agendamentos">Criar Agendamentos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/postagens">Criar Postagens</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="/usuarios/logout">Sair</a>
+      </li>
+
+      {{else}}
       <li class="nav-item active">
         <a class="nav-link" href="/">Home<span class="sr-only"></span></a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="/agendas">Agendas</a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Login</a>
+        <a class="nav-link " href="/usuarios/login">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Registros</a>
+        <a class="nav-link" href="/usuarios/registro">Registros</a>
       </li>
+
+      {{/if}}
+    </ul>
+  </div>
 </nav>

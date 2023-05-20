@@ -8,9 +8,10 @@ require('../models/mongo')
 const Categorias = mongoose.model('Evento')
 require('../models/postagens')
 const postagens = mongoose.model("postagens")
+const {eAdmin} = require('../helpers/eAdmin')
 
 // Rotas de agendamentos
-router.get('/agendamentos', (req,res) =>{
+router.get('/agendamentos', eAdmin, (req,res) =>{
     Categorias.find().lean().sort({data: "desc"}).then((categorias) => {
         res.render('admin/agendamentos', {categorias: categorias})
     }).catch((erro) => {
@@ -20,11 +21,11 @@ router.get('/agendamentos', (req,res) =>{
 })
 
     // criação de agendamentos
-router.get('/agendamentos/add', (req,res) => {
+router.get('/agendamentos/add', eAdmin, (req,res) => {
     res.render('admin/addagendamentos')
 })
 
-router.post('/agendamentos/add/nova', (req,res) => {
+router.post('/agendamentos/add/nova', eAdmin, (req,res) => {
     
     let erros = []
 
@@ -56,7 +57,7 @@ router.post('/agendamentos/add/nova', (req,res) => {
 })
 
     // Edição de agendamentos
-router.get("/agendamentos/edit/:id", (req,res) =>{
+router.get("/agendamentos/edit/:id", eAdmin, (req,res) =>{
     Categorias.findOne({_id: req.params.id}).lean().then((categorias) =>{
         res.render("admin/editagendamento", {categorias: categorias})
     }).catch((erro =>{
@@ -66,7 +67,7 @@ router.get("/agendamentos/edit/:id", (req,res) =>{
     
 })
 
-router.post("/agendamentos/edit", (req,res) => {
+router.post("/agendamentos/edit", eAdmin, (req,res) => {
     Categorias.findOne({_id: req.body.id}).then((categorias) => {
     let erros = []
     
@@ -111,7 +112,7 @@ router.post("/agendamentos/edit", (req,res) => {
 })
 
     // Exclusão de agendamentos
-router.post('/agendamentos/deletar', (req, res) =>{
+router.post('/agendamentos/deletar', eAdmin, (req, res) =>{
     Categorias.deleteOne({_id: req.body.id}).then(() =>{
         req.flash("sucess_msg", "Evento deletado com sucesso")
         res.redirect("/agendamentos")
@@ -123,7 +124,7 @@ router.post('/agendamentos/deletar', (req, res) =>{
 
 
 // Rotas de postagens
-router.get('/postagens', (req,res) =>{
+router.get('/postagens', eAdmin, (req,res) =>{
     postagens.find().lean().populate({path: "categorias", strictPopulate: false}).sort({data: "desc"}).then((postagens) =>{
         res.render("admin/postagens", {postagens: postagens})
     }).catch((erro) => {
@@ -134,7 +135,7 @@ router.get('/postagens', (req,res) =>{
 })
 
     // criação de postagens
-router.get('/postagens/add', (req, res) => {
+router.get('/postagens/add', eAdmin, (req, res) => {
     Categorias.find().lean().then((categorias) => {
         res.render("admin/addpostagens", {categorias: categorias})
     }).catch((erro) =>{
@@ -143,7 +144,7 @@ router.get('/postagens/add', (req, res) => {
     })
 })
 
-router.post("/postagens/nova", (req,res) =>{
+router.post("/postagens/nova", eAdmin, (req,res) =>{
  
     let erros = []
 
@@ -205,7 +206,7 @@ router.post("/postagens/nova", (req,res) =>{
 })
 
     // Edição de postagens
-router.get('/postagens/edit/:id', (req,res) => {
+router.get('/postagens/edit/:id', eAdmin, (req,res) => {
     postagens.findOne({_id: req.params.id}).lean().then((postagens) =>{
         
     Categorias.find().lean().then((categorias) => {
@@ -221,7 +222,7 @@ router.get('/postagens/edit/:id', (req,res) => {
     })
 })
 
-router.post('/postagens/edit', (req,res) => {
+router.post('/postagens/edit', eAdmin, (req,res) => {
     postagens.findOne({_id: req.body.id}).then((postagens) => {
 
         postagens.titulo = req.body.titulo,
@@ -244,7 +245,7 @@ router.post('/postagens/edit', (req,res) => {
 })
 
     // Exclusão de postagens
-router.get('/postagens/delete/:id', (req,res) =>{
+router.get('/postagens/delete/:id', eAdmin, (req,res) =>{
     postagens.deleteOne({_id: req.params.id}).then(() =>{
         req.flash("sucess_msg", "Postagem deletada com sucesso!")
         res.redirect("/postagens")

@@ -4,7 +4,13 @@
   <p class="lead">Realize agendamentos com 100% de eficiencia</p>
   <hr class="my-1">
   <p>Marque, Desmarque, Modifique e Exclua. <br> Crie uma Agenda do seu jeitinho!</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Crie uma conta</a>
+
+  {{#if user}}
+
+  {{else}}
+    <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">Crie uma conta</a>
+  {{/if}}
+
 </div>
 
 <hr>
