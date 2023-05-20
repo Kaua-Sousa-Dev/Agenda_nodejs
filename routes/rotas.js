@@ -1,3 +1,4 @@
+// Config
 const express = require('express')
 const router = express.Router()
 
@@ -8,7 +9,7 @@ const Categorias = mongoose.model('Evento')
 require('../models/postagens')
 const postagens = mongoose.model("postagens")
 
-
+// Rotas de agendamentos
 router.get('/agendamentos', (req,res) =>{
     Categorias.find().lean().sort({data: "desc"}).then((categorias) => {
         res.render('admin/agendamentos', {categorias: categorias})
@@ -18,6 +19,7 @@ router.get('/agendamentos', (req,res) =>{
     })
 })
 
+    // criação de agendamentos
 router.get('/agendamentos/add', (req,res) => {
     res.render('admin/addagendamentos')
 })
@@ -53,6 +55,7 @@ router.post('/agendamentos/add/nova', (req,res) => {
     }
 })
 
+    // Edição de agendamentos
 router.get("/agendamentos/edit/:id", (req,res) =>{
     Categorias.findOne({_id: req.params.id}).lean().then((categorias) =>{
         res.render("admin/editagendamento", {categorias: categorias})
@@ -107,6 +110,7 @@ router.post("/agendamentos/edit", (req,res) => {
     })
 })
 
+    // Exclusão de agendamentos
 router.post('/agendamentos/deletar', (req, res) =>{
     Categorias.deleteOne({_id: req.body.id}).then(() =>{
         req.flash("sucess_msg", "Evento deletado com sucesso")
@@ -117,6 +121,8 @@ router.post('/agendamentos/deletar', (req, res) =>{
     })
 })
 
+
+// Rotas de postagens
 router.get('/postagens', (req,res) =>{
     postagens.find().lean().populate({path: "categorias", strictPopulate: false}).sort({data: "desc"}).then((postagens) =>{
         res.render("admin/postagens", {postagens: postagens})
@@ -127,6 +133,7 @@ router.get('/postagens', (req,res) =>{
     
 })
 
+    // criação de postagens
 router.get('/postagens/add', (req, res) => {
     Categorias.find().lean().then((categorias) => {
         res.render("admin/addpostagens", {categorias: categorias})
@@ -197,6 +204,7 @@ router.post("/postagens/nova", (req,res) =>{
     }
 })
 
+    // Edição de postagens
 router.get('/postagens/edit/:id', (req,res) => {
     postagens.findOne({_id: req.params.id}).lean().then((postagens) =>{
         
@@ -235,6 +243,7 @@ router.post('/postagens/edit', (req,res) => {
         })
 })
 
+    // Exclusão de postagens
 router.get('/postagens/delete/:id', (req,res) =>{
     postagens.deleteOne({_id: req.params.id}).then(() =>{
         req.flash("sucess_msg", "Postagem deletada com sucesso!")

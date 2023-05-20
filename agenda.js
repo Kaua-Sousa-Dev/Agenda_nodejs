@@ -4,6 +4,7 @@ const app = new express();
 
 // configuração das rotas
 const rotas = require('./routes/rotas')
+const usuarios = require('./routes/usuario')
 
 // configuração bodyparser
 app.use(express.urlencoded({extended: false}))
@@ -20,6 +21,11 @@ app.set('views', './views')
 const path = require('path')
 app.use(express.static(path.join(__dirname, "public")))
 
+// config passport
+const passport = require('passport')
+require('./config/auth')(passport)
+
+
 // configurando sessoes e midlewars
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -30,12 +36,15 @@ const flash = require('connect-flash')
         resave: true,
         saveUninitialized: true
     }))
+    app.use(passport.initialize())
+    app.use(passport.session())
     app.use(flash())
 
     // Middlewar
     app.use((req,res,next) => {
         res.locals.sucess_msg = req.flash('sucess_msg')
         res.locals.error_msg = req.flash('error_msg')
+        res.locals.error = req.flash("error")
         next()
     })
 
@@ -50,14 +59,54 @@ mongoose.connect('mongodb://0.0.0.0:27017/agendamentos', {
 }).catch((erro) => {
     console.log("erro" + erro)
 })
+    // config home page
+        // postagens
+        require('./models/postagens')
+        const Postagens = mongoose.model('postagens')
+        // agendas
+        require('./models/mongo')
+        const Categorias = mongoose.model('Evento')
+
 
 // rotas
 app.get('/', (req,res) =>{
-    res.render('admin/index')
+    Postagens.find().lean().populate("categorias").sort({data: "desc"}).then((postagens) =>{
+        res.render('admin/index', {postagens: postagens})
+    }).catch((erro) =>{
+        req.flash("error_msg", "Erro ao listar postagens")
+        res.redirect("/404")
+    })
+    
 })
 
+app.get('/postagem/:slug', (req,res) =>{
+    Postagens.findOne({slug: req.params.slug}).lean().then((postagens) =>{
+        if(postagens){
+            res.render("postagem/index", {postagens: postagens})
+        }else{
+            req.flash("error_msg", "Postagem Inexistente")
+            res.redirect("/")
+        }
+    }).catch((erro) =>{
+        req.flash("error_msg", "Erro interno")
+        res.redirect("/")
+    })
+})
+
+app.get("/agendas", (req,res) =>{
+    Categorias.find().lean().then((categorias) =>{
+        res.render("agendas/index", {categorias: categorias})
+    }).catch((erro) =>{
+        req.flash("error_msg", "Erro ao listar agendas!")
+        res.redirect("/")
+    })
+})
+app.get('/404', (req,res) =>{
+    res.send("Error 404!")
+})
 
 app.use('/', rotas)
+app.use('/usuarios', usuarios)
 
 // Outros
 app.listen(8081, () => {

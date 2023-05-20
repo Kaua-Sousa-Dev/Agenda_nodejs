@@ -1,3 +1,4 @@
+<!-- CRUD de agendamentos -->
 <h2>Lista de Agendamentos: </h2>
 
 <a href="/agendamentos/add"><button class="btn btn-success">Cadastrar Agendamento</button></a>
@@ -12,10 +13,6 @@
                 Descrição: {{this.Conteudo}}
             </h5>
             <br>
-            <small>
-                Data de criação: {{this.data}}
-            </small> <br>
-            
             <table>
                 <tr>
                     <td> <a href="/agendamentos/edit/{{_id}}"><button class="btn btn-success mt-4">Editar</button></a> </td>
@@ -27,6 +24,10 @@
                     </form>
                 </tr>
             </table>
+            <hr>
+            <small>
+                Data de criação: {{this.data}}
+            </small>
         </div>
     </div>
 {{else}}

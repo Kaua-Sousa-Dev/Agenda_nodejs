@@ -1,0 +1,18 @@
+{{#each categorias}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4>
+                {{this.Evento}}
+            </h4>
+            <h5>
+                Descrição: {{this.Conteudo}}
+            </h5>
+            <hr>
+            <small>
+                Data de criação: {{this.data}}
+            </small>
+        </div>
+    </div>
+{{else}}
+<h4 class="mt-2">Nenhum evento agendado!</h4>
+{{/each}}

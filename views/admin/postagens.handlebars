@@ -1,3 +1,4 @@
+<!-- CRUD de postagens -->
 <h2>Lista de Postagem: </h2>
 
 <a href="/postagens/add"><button class="btn btn-success">Cadastrar Postagem</button></a>
@@ -7,25 +8,26 @@
      <div class="card mt-4">
         <div class="card-body">
             <h4>
-                Título: {{this.titulo}}
+                {{this.titulo}}
             </h4>
             <h5>
-                Slug: {{this.slug}}
-            </h5> <br>
+                Horários: {{this.slug}}
+            </h5>
             <h5>
                 Descrição: {{this.descricao}}
-            </h5> <br>
-            <h5>
+            </h5>
+            <h5> <br>
                 Conteúdo: {{this.conteudo}}
             </h5> <br>
             <h5>
                 Agendas: {{categorias.Evento}}
-            </h5> <br>
-            <small>
-                Data de criação: {{this.data}}
-            </small> <br>
+            </h5>
             <a href="/postagens/edit/{{_id}}"><button class="btn btn-success mt-2">Editar</button></a>
             <a href="/postagens/delete/{{_id}}"><button type="submit" class="btn btn-danger mt-2">Deletar</button></a>
+        <hr>
+        <small>
+            Data de criação: {{this.data}}
+        </small>
         </div>
     </div>
 {{else}}

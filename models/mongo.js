@@ -6,11 +6,11 @@ const eventSchema = mongoose.Schema;
 const Evento = new eventSchema({
     Evento: {
         type: String,
-        require: true
+        required: true
     },
     Conteudo: {
         type: String,
-        require: true
+        required: true
     },
     data: {
         type: Date,

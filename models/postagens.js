@@ -1,27 +1,29 @@
+// Config
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Criando collection
 const postagens = new Schema({
     titulo:{
         type: String,
-        require: true
+        required: true
     },
     slug: {
         type: String,
-        require: true
+        required: true
     },
     descricao: {
         type: String,
-        require: true,
+        required: true,
     },
     conteudo:{
         type: String,
-        require: true
+        required: true
     },
     categorias: {
         type: Schema.Types.ObjectId,
         ref: 'Evento',
-        require: true
+        required: true
     },
     data: {
         type: Date,
