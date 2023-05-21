@@ -8,7 +8,7 @@
   {{#if user}}
 
   {{else}}
-    <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">Crie uma conta</a>
+  <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">Crie uma conta</a>
   {{/if}}
 
 </div>
@@ -19,12 +19,12 @@
 {{#each postagens}}
 <div class="card mt-4">
   <div class="card-body">
-      <h3>
-        {{this.titulo}}
-      </h3>
-      <p>
-        {{this.descricao}}
-      </p>
+    <h3>
+      {{this.titulo}}
+    </h3>
+    <p>
+      {{this.descricao}}
+    </p>
     <a href="/postagem/{{slug}}"><button class="btn btn-outline-primary btn-sm mt-2">Leia Mais</button></a>
     <hr>
     <small>Agendamento: <b>{{categorias.Evento}}</b> </small> <br>
