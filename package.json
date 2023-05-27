@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node agenda.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "vercel-build": "npx prisma model deploy"
   },
   "keywords": [],
   "author": "",
