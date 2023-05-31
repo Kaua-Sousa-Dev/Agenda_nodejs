@@ -110,6 +110,7 @@ app.use('/', rotas)
 app.use('/usuarios', usuarios)
 
 // Outros
-app.listen(8081, () => {
-    console.log("Servidor Rodando")
+const port = 8081
+app.listen(port, () =>{
+    console.log("Servidor rodando!")
 })
